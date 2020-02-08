@@ -1,10 +1,16 @@
-import React from 'react';
-import classes from './Row.module.css'
+import React from "react";
+import classes from "./Row.module.css";
 
-export const Row: React.FC = () => {
-    return (
-        <div className={classes.Row}>
-            <p>I'm a row</p>
-        </div>
-    )
+interface RowProps {
+  name: string;
+  clickHandler: () => void;
+  index: number;
 }
+
+export const Row: React.FC<RowProps> = props => {
+  return (
+    <div className={classes.Row} onClick={props.clickHandler}>
+      <p>{props.name}</p>
+    </div>
+  );
+};
