@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { Row } from "../../components/row/Row";
 import uuidv1 from "uuid/v1";
+import { ProjectTitle } from "../../components/ProjectTitle/ProjectTitle";
+import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Classes from "./Project.module.css";
+import AddIcon from "@material-ui/icons/Add";
 
 interface lineItem {
   name: string;
@@ -36,10 +41,17 @@ export const Project: React.FC = () => {
   };
 
   return (
-    <>
-      <h1>Project</h1>
+    <Paper className={Classes.Paper} elevation={2}>
+      <ProjectTitle title={"Project Title"} />
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<AddIcon />}
+        onClick={addRow}
+      >
+        Add Row
+      </Button>
       {lines}
-      <button onClick={addRow}>Add Row</button>
-    </>
+    </Paper>
   );
 };
