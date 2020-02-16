@@ -7,13 +7,15 @@ import Button from "@material-ui/core/Button";
 import Classes from "./Project.module.css";
 import AddIcon from "@material-ui/icons/Add";
 
-interface lineItem {
-  name: string;
+export interface LineItem {
   id: string;
+  name?: string;
+  qty?: number;
+  cost?: number;
 }
 
 export const Project: React.FC = () => {
-  const [lineItems, setLineItems] = useState<lineItem[] | undefined>();
+  const [lineItems, setLineItems] = useState<LineItem[] | undefined>();
 
   const deleteRow = (index: number) => {
     if (lineItems) {
@@ -26,15 +28,14 @@ export const Project: React.FC = () => {
   const lines = lineItems?.map((lineItem, index) => (
     <Row
       key={lineItem.id}
-      name={lineItem.name}
+      lineItem={lineItem}
       clickHandler={() => deleteRow(index)}
       index={index}
     />
   ));
 
   const addRow = () => {
-    const newLineItem: lineItem = {
-      name: `test: ${Math.random()}`,
+    const newLineItem: LineItem = {
       id: uuidv1()
     };
     setLineItems([...(lineItems || []), newLineItem]);
