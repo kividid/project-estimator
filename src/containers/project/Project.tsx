@@ -13,6 +13,7 @@ export interface LineItem {
   name?: string;
   qty?: number;
   cost?: number;
+  flat?: boolean;
 }
 
 export const Project: React.FC = () => {
@@ -37,7 +38,7 @@ export const Project: React.FC = () => {
     const lineIndex = currentLineItems.findIndex(lineItem => lineItem.id === id)
     currentLineItems[lineIndex] = {
       ...currentLineItems[lineIndex],
-      [property]: event.currentTarget.value
+      [property]: property === 'flat' ? event.currentTarget.checked : event.currentTarget.value
     }
     console.log(currentLineItems)
     setLineItems(currentLineItems)

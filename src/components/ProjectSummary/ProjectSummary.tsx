@@ -16,7 +16,10 @@ interface ProjectSummaryProps {
 export const ProjectSummary: React.FC<ProjectSummaryProps> = ({lineItems, properties}) => {
     const calculateTotalCost = (): number => {
         if (lineItems) {
-            return lineItems.reduce((totalCost, lineItem) => totalCost + (lineItem.qty || 0) * (lineItem.cost || 0), 0) * properties.qty
+            return lineItems.reduce((totalCost, lineItem) => {
+                const lineCost = totalCost + (lineItem.qty || 0) * (lineItem.cost || 0)
+                return lineItem.flat ? lineCost : lineCost * properties.qty
+            }, 0)
         }
 
         return 0
@@ -26,13 +29,19 @@ export const ProjectSummary: React.FC<ProjectSummaryProps> = ({lineItems, proper
         return calculateTotalCost() / (1 - properties.margin / 100)
     }
 
+    const calculateProfit = (): number => {
+        return calculatePrice() - calculateTotalCost()
+    }
+
     return(
         <div>
             <h3>Project Summary</h3>
             <p>Total Cost: ${calculateTotalCost().toFixed(2)}</p>
             <p>Total Price: ${calculatePrice().toFixed(2)}</p>
+            <p>Profit: ${calculateProfit().toFixed(2)}</p>
             <TextField value={properties.qty} type="number" label="Quantity" onChange={(e) => properties.setQty(Number(e.currentTarget.value))} />
             <TextField value={properties.margin} type="number" label="Margin (%)" onChange={(e) => properties.setMargin(Number(e.currentTarget.value))} />
+            <p>{JSON.stringify(lineItems)}</p>
         </div>
     )
 }
