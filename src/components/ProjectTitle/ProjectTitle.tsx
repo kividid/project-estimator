@@ -7,7 +7,7 @@ interface ProjectTitleProps {
 
 export const ProjectTitle: React.FC<ProjectTitleProps> = props => {
   return (
-    <h1 className={Classes.Title} contentEditable>
+    <h1 className={Classes.Title}>
       {props.title}
     </h1>
   );

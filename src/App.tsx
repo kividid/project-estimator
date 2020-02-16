@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { Project } from "./containers/project/Project";
 import Container from "@material-ui/core/Container";

@@ -6,21 +6,25 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 interface RowProps {
   lineItem: LineItem;
-  clickHandler: () => void;
+  handleDelete: () => void;
+  handleChange: (id: string, property: string, event: React.SyntheticEvent<any, Event>) => void;
   index: number;
 }
 
-export const Row: React.FC<RowProps> = props => {
+export const Row: React.FC<RowProps> = ({ lineItem, handleDelete, handleChange, index }) => {
   return (
     <form className={classes.Row} noValidate autoComplete="off">
-      <TextField id="standard-basic" label="Name" value={props.lineItem.name} />
+      <TextField className={classes.Input} id="standard-basic" label="Name" value={lineItem.name} onChange={(e) => handleChange(lineItem.id, 'name', e)} />
       <TextField
+        className={classes.Input}
         id="standard-basic"
         label="Quantity"
-        value={props.lineItem.qty}
+        type="number"
+        value={lineItem.qty}
+        onChange={(e) => handleChange(lineItem.id, 'qty', e)}
       />
-      <TextField id="standard-basic" label="Cost" value={props.lineItem.cost} />
-      <IconButton onClick={props.clickHandler} aria-label="delete">
+      <TextField className={classes.Input} id="standard-basic" label="Cost" type="number" value={lineItem.cost} onChange={(e) => handleChange(lineItem.id, 'cost', e)} />
+      <IconButton onClick={handleDelete} aria-label="delete">
         <DeleteIcon />
       </IconButton>
     </form>

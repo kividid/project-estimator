@@ -1,5 +1,8 @@
 .Row {
   width: 100%;
-  border: 1px solid black;
   padding: 0.5rem;
+}
+
+.Input {
+  margin: 0 1rem !important;
 }
